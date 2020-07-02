@@ -1,0 +1,38 @@
+{
+  "name": "bootstrap-boilerplate",
+  "version": "1.0.0",
+  "description": "A basic Bootstrap boilerplate template",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halibegic/bootstrap-boilerplate.git"
+  },
+  "keywords": [
+    "bootstrap4",
+    "gulp",
+    "boilerplate",
+    "sass"
+  ],
+  "author": "halibegic",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/halibegic/bootstrap-boilerplate/issues"
+  },
+  "homepage": "https://github.com/halibegic/bootstrap-boilerplate#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-html-extend": "^1.1.6",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-uglify": "^3.0.2",
+    "lodash.template": "^4.5.0"
+  }
+}

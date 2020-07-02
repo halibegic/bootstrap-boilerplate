@@ -1,0 +1,21 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+//
+// Typography
+//
+
+$font-family-sans-serif:                "Nunito", sans-serif;
+
+$font-weight-light:                     300 !default;
+$font-weight-normal:                    400 !default;
+$font-weight-semibold:                  600 !default;
+$font-weight-bold:                      700 !default;
+
+//
+// Assets
+//
+
+$img-path:                              "../img/" !default;
+$font-path:                             "../font/" !default;

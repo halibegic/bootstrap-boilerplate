@@ -1,0 +1,27 @@
+// -----------------------------------------------------------------------------
+// This file contains all @font-face declarations, if any.
+// -----------------------------------------------------------------------------
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('#{$font-path}/nunito/nunito-light.ttf') format('truetype');
+    font-weight: $font-weight-light;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('#{$font-path}/nunito/nunito-regular.ttf') format('truetype');
+    font-weight: $font-weight-normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('#{$font-path}/nunito/nunito-semibold.ttf') format('truetype');
+    font-weight: $font-weight-semibold;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('#{$font-path}/nunito/nunito-bold.ttf') format('truetype');
+    font-weight: $font-weight-bold;
+}
