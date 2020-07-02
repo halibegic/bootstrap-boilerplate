@@ -8,6 +8,7 @@ A basic Bootstrap boilerplate template.
 
 ### Start server
 * Type `npm run dev`
+
 You should see a live browser at http://localhost:3000/.
 
 ### Production
