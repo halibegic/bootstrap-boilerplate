@@ -1,15 +1,17 @@
 Bootstrap Boilerplate
 ======
-A basic Bootstrap boilerplate template with Gulp4, Sass, CSS and JS minification, template partials, BrowserSync.
+A basic Bootstrap boilerplate template.
 
 ### How to use
-
 * [Download](https://github.com/halibegic/bootstrap-boilerplate/archive/master.zip) Bootstrap boilerplate
 * Type `npm i`
-* Type `gulp`
 
-### Gulp tasks
-* gulp - run default gulp task (watch) for web dev
+### Start server
+* Type `npm run dev`
+You should see a live browser at http://localhost:3000/.
+
+### Production
+* Type `npm run prod`
 
 ### Credits
  * [jQuery](http://jquery.com/)

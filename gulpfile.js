@@ -1,14 +1,15 @@
 const gulp = require('gulp');
-const browserSync = require('browser-sync');
+const browserSync = require('browser-sync').create();
 const clean = require('gulp-clean');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
+const gulpIf = require('gulp-if');
 const htmlExtend = require('gulp-html-extend');
 const plumber = require('gulp-plumber');
-const rename = require('gulp-rename');
 const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
-
+const isProd = process.env.NODE_ENV === 'prod';
 const paths = {
     css: {
         src: 'src/scss/**/*.scss',
@@ -42,27 +43,21 @@ const paths = {
 };
 
 function del() {
-    return gulp.src('dist/*', {
-        read: false
-    }).pipe(clean());
+    return gulp
+        .src('dist/*', {
+            read: false,
+        })
+        .pipe(clean());
 }
 
 function css() {
     return gulp
         .src(paths.css.src)
         .pipe(plumber())
-        .pipe(sass())
-        .pipe(rename({
-            suffix: '.min',
-            prefix: ''
-        }))
-        .pipe(cleanCSS({
-            level: {
-                1: {
-                    specialComments: 0
-                }
-            }
-        }))
+        .pipe(gulpIf(!isProd, sourcemaps.init()))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulpIf(!isProd, sourcemaps.write()))
+        .pipe(gulpIf(isProd, cleanCSS({ level: { 1: { specialComments: 0 } } })))
         .pipe(gulp.dest(paths.css.dest));
 }
 
@@ -70,8 +65,8 @@ function js() {
     return gulp
         .src(paths.js.src)
         .pipe(plumber())
-        .pipe(concat('main.min.js'))
-        .pipe(uglify())
+        .pipe(concat('main.js'))
+        .pipe(gulpIf(isProd, uglify()))
         .pipe(gulp.dest(paths.js.dest));
 }
 
@@ -79,10 +74,12 @@ function html() {
     return gulp
         .src(paths.html.src)
         .pipe(plumber())
-        .pipe(htmlExtend({
-            annotations: false,
-            verbose: false
-        }))
+        .pipe(
+            htmlExtend({
+                annotations: false,
+                verbose: false,
+            })
+        )
         .pipe(gulp.dest(paths.html.dest));
 }
 
@@ -129,4 +126,5 @@ function watch() {
     gulp.watch(paths.font.src, gulp.series(font, reload));
 }
 
-gulp.task('default', gulp.series(del, css, js, html, img, font, ico, gulp.parallel(serve, watch)));
+exports.serve = gulp.parallel(css, js, html, img, font, ico, gulp.parallel(serve, watch));
+exports.default = gulp.series(del, css, js, html, img, font, ico);
