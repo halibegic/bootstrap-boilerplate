@@ -1,6 +1,6 @@
 Bootstrap Boilerplate
 ======
-A basic Bootstrap boilerplate template.
+A basic Bootstrap boilerplate template with Gulp4, Sass, CSS and JS minification, template partials, BrowserSync.
 
 ### How to use
 
