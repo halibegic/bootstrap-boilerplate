@@ -1,9 +1,10 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync');
 const clean = require('gulp-clean');
-const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
+const concat = require('gulp-concat');
 const htmlExtend = require('gulp-html-extend');
+const plumber = require('gulp-plumber');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
@@ -49,6 +50,7 @@ function del() {
 function css() {
     return gulp
         .src(paths.css.src)
+        .pipe(plumber())
         .pipe(sass())
         .pipe(rename({
             suffix: '.min',
@@ -67,6 +69,7 @@ function css() {
 function js() {
     return gulp
         .src(paths.js.src)
+        .pipe(plumber())
         .pipe(concat('main.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(paths.js.dest));
@@ -75,6 +78,7 @@ function js() {
 function html() {
     return gulp
         .src(paths.html.src)
+        .pipe(plumber())
         .pipe(htmlExtend({
             annotations: false,
             verbose: false
@@ -85,18 +89,21 @@ function html() {
 function img() {
     return gulp
         .src(paths.img.src)
+        .pipe(plumber())
         .pipe(gulp.dest(paths.img.dest));
 }
 
 function font() {
     return gulp
         .src(paths.font.src)
+        .pipe(plumber())
         .pipe(gulp.dest(paths.font.dest));
 }
 
 function ico() {
     return gulp
         .src(paths.ico.src)
+        .pipe(plumber())
         .pipe(gulp.dest(paths.ico.dest));
 }
 
