@@ -13,9 +13,10 @@
     "url": "git+https://github.com/halibegic/bootstrap-boilerplate.git"
   },
   "keywords": [
-    "bootstrap4",
-    "gulp",
+    "bootstrap",
     "boilerplate",
+    "boilerplate-template",
+    "gulp",
     "sass"
   ],
   "author": "halibegic",
