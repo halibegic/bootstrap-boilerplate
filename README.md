@@ -21,4 +21,5 @@ You should see a live browser at http://localhost:3000/.
 ### Copyright and License
 
 Copyright 2020 [Hasan Alibegić](https://halibegic.info/)
+
 MIT License
