@@ -21,5 +21,4 @@ You should see a live browser at http://localhost:3000/.
 ### Copyright and License
 
 Copyright 2020 [Hasan Alibegić](https://halibegic.info/)
-
-GNU General Public License v2 or later. [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
+MIT License
