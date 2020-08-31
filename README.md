@@ -22,4 +22,4 @@ You should see a live browser at http://localhost:3000/.
 
 Copyright 2020 [Hasan Alibegić](https://halibegic.info/)
 
-MIT License
+Licensed under [The MIT License (MIT)](LICENSE.md).
