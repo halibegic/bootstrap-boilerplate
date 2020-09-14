@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/halibegic/bootstrap-boilerplate#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.12",
     "cross-env": "^7.0.2",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
