@@ -1,46 +1,16 @@
 const gulp = require('gulp');
-const browserSync = require('browser-sync').create();
+const browsersync = require('browser-sync').create();
 const clean = require('gulp-clean');
-const cleanCSS = require('gulp-clean-css');
+const cleancss = require('gulp-clean-css');
 const concat = require('gulp-concat');
-const gulpIf = require('gulp-if');
-const htmlExtend = require('gulp-html-extend');
+const gulpif = require('gulp-if');
+const pug = require('gulp-pug');
+const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
-const isProd = process.env.NODE_ENV === 'prod';
-const paths = {
-    css: {
-        src: 'src/scss/**/*.scss',
-        dest: 'dist/css',
-    },
-    js: {
-        src: [
-            'src/js/vendor/jquery.min.js',
-            'src/js/vendor/bootstrap/util.js',
-            'src/js/vendor/bootstrap/collapse.js',
-            'src/js/main.js',
-        ],
-        dest: 'dist/js',
-    },
-    html: {
-        src: 'src/html/**/*',
-        dest: 'dist',
-    },
-    img: {
-        src: 'src/img/**/*',
-        dest: 'dist/img',
-    },
-    font: {
-        src: 'src/font/**/*',
-        dest: 'dist/font',
-    },
-    ico: {
-        src: 'src/*.ico',
-        dest: 'dist',
-    },
-};
+const prod = process.env.NODE_ENV === 'prod';
 
 function del() {
     return gulp
@@ -52,78 +22,81 @@ function del() {
 
 function css() {
     return gulp
-        .src(paths.css.src)
+        .src('src/scss/**/*.scss')
         .pipe(plumber())
-        .pipe(gulpIf(!isProd, sourcemaps.init()))
+        .pipe(gulpif(!prod, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulpIf(!isProd, sourcemaps.write()))
-        .pipe(gulpIf(isProd, cleanCSS({ level: { 1: { specialComments: 0 } } })))
-        .pipe(gulp.dest(paths.css.dest));
+        .pipe(gulpif(!prod, sourcemaps.write()))
+        .pipe(gulpif(prod, cleancss({ level: { 1: { specialComments: 0 } } })))
+        .pipe(gulp.dest('dist/css'));
 }
 
 function js() {
     return gulp
-        .src(paths.js.src)
+        .src([
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/bootstrap/js/dist/collapse.js',
+            'src/js/main.js'
+        ])
         .pipe(plumber())
         .pipe(concat('main.js'))
-        .pipe(gulpIf(isProd, uglify()))
-        .pipe(gulp.dest(paths.js.dest));
+        .pipe(gulpif(prod, uglify()))
+        .pipe(gulp.dest('dist/js'));
 }
 
 function html() {
     return gulp
-        .src(paths.html.src)
+        .src('src/html/**/!(_)*.pug')
         .pipe(plumber())
         .pipe(
-            htmlExtend({
-                annotations: false,
-                verbose: false,
+            pug({
+                pretty: true,
+                data: {},
             })
         )
-        .pipe(gulp.dest(paths.html.dest));
+        .pipe(gulp.dest('dist'));
 }
 
 function img() {
-    return gulp
-        .src(paths.img.src)
+    return gulp.src('src/img/**/*')
         .pipe(plumber())
-        .pipe(gulp.dest(paths.img.dest));
+        .pipe(gulpif(prod, imagemin()))
+        .pipe(gulp.dest('dist/img'));
 }
 
 function font() {
-    return gulp
-        .src(paths.font.src)
+    return gulp.src('src/font/**/*')
         .pipe(plumber())
-        .pipe(gulp.dest(paths.font.dest));
+        .pipe(gulp.dest('dist/font'));
 }
 
 function ico() {
-    return gulp
-        .src(paths.ico.src)
+    return gulp.src('src/*.ico')
         .pipe(plumber())
-        .pipe(gulp.dest(paths.ico.dest));
+        .pipe(gulp.dest('dist'));
 }
 
 function serve(done) {
-    browserSync.init({
+    browsersync.init({
         open: true,
         server: 'dist',
+        notify: false,
     });
 
     done();
 }
 
 function reload(done) {
-    browserSync.reload();
+    browsersync.reload();
     done();
 }
 
 function watch() {
-    gulp.watch(paths.css.src, gulp.series(css, reload));
-    gulp.watch(paths.js.src, gulp.series(js, reload));
-    gulp.watch(paths.html.src, gulp.series(html, reload));
-    gulp.watch(paths.img.src, gulp.series(img, reload));
-    gulp.watch(paths.font.src, gulp.series(font, reload));
+    gulp.watch('src/scss/**/*.scss', gulp.series(css, reload));
+    gulp.watch('src/js/**/*.js', gulp.series(js, reload));
+    gulp.watch('src/html/**/*.pug', gulp.series(html, reload));
+    gulp.watch('src/img/**/*', gulp.series(img, reload));
+    gulp.watch('src/font/**/*', gulp.series(font, reload));
 }
 
 exports.serve = gulp.parallel(css, js, html, img, font, ico, gulp.parallel(serve, watch));

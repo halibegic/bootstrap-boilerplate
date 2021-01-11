@@ -1,0 +1,16 @@
+extends _layout/_main
+
+block variables
+    - var title = 'About'
+    - var navLink = 'about'
+
+block content
+    include _layout/_header
+    main.container(role='main')
+        .py-5.text-center
+            h1.display-3 About
+            p.lead 
+                | Use this document as a way to quickly start any new project.
+                br
+                | All you get is this text and a mostly barebones HTML document.
+    include _layout/_footer

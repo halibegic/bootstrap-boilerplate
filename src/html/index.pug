@@ -1,0 +1,21 @@
+extends _layout/_main
+
+block variables
+    - var title = 'Home'
+    - var navLink = 'home'
+
+block content
+    include _layout/_header
+    main.container(role='main')
+        .mt-5.mb-5.text-center
+            h1.display-3 Bootstrap Boilerplate
+            p.lead 
+                | Use this document as a way to quickly start any new project.
+                br
+                | All you get is this text and a mostly barebones HTML document.
+        .row.mb-5
+            .col-12.col-lg-4.mx-auto
+                figure.figure
+                    img.figure-img.img-fluid.rounded(src='img/cat.jpg' alt='')
+                    figcaption.figure-caption.text-center Mr. Zelo
+    include _layout/_footer
